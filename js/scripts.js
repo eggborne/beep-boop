@@ -8,6 +8,7 @@ $(function(){
 function boopify(userInput) {
   var output = []
   var toList = parseInt(userInput)
+
   for (var i=0; i<=toList; i++) {
     var num = i.toString()
     var toPass = num
@@ -19,6 +20,9 @@ function boopify(userInput) {
       toPass = "Beep!"
     }
     output.push(toPass)
+  }
+  if (document.getElementById('reverseCheck').checked) {
+    output = output.reverse()
   }
   return output
 }
