@@ -1,12 +1,12 @@
 # Beep-Boop!
-#### Special Project #3 for Epicodus, 10 August 2018
+#### Special Project #3 for Epicodus, 17 August 2018
 ### by Michael Donovan
 
 [Visit at GitHub Pages](https://eggborne.github.io/beep-boop)
 
 ## Description
 
-A website that takes a user-submitted number and outputs an enumerated list with some numbers replaced with cute statements a la FizzBuzz.
+A website that takes a user-submitted number and outputs an enumerated list with some numbers replaced with cute words/phrases à la FizzBuzz.
 
 ## Technologies Used:
 * HTML
@@ -17,9 +17,32 @@ A website that takes a user-submitted number and outputs an enumerated list with
 
 ## Specifications
 
-* Program replaces 0 with "Beep!"
+* Program replaces numbers that include a 0 with "Beep!"
   * **Example Input: 0**
   * **Example Output: ["Beep!"]"**
+
+
+* Program replaces numbers that include a 1 with "Boop!"
+  * **Example Input: 1**
+  * **Example Output: ["Beep!", "Boop!"]**
+
+
+* Program replaces numbers divisible by 3 with "I'm sorry, Dave. I'm afraid I can't do that."
+  * **Example Input: 3**
+  * **Example Output: ["Beep!", "Boop!", 2, "I'm sorry, Dave. I'm afraid I can't do that."]**
+
+
+* Program lists numbers in reverse order when "Reverse order" box is checked
+  * **Example Input: 3**
+  * **Example Output: ["I'm sorry, Dave. I'm afraid I can't do that.", 2, "Boop!", "Beep!"]**
+
+
+* Program applies exceptions in the proper order
+  * **Example Input: 10**
+  * **Example Output: ["Beep!", "Boop!", 2, "I'm sorry, Dave. I'm afraid I can't do that.", 4, 5, "I'm sorry, Dave. I'm afraid I can't do that.", 7, 8, "I'm sorry, Dave. I'm afraid I can't do that.", "Boop!"]**
+
+
+
 
 ## Setup/Installation Instructions
 
