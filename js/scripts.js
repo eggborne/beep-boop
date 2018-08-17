@@ -29,22 +29,32 @@ function displayBoopedList(userNumber) {
   var list = boopify(userNumber)
   var delay = 0;
   list.forEach(function(item,i){
+    if (item === "Beep!") {
+      item = `<span class="beep">Beep!</span>`
+    } else if (item === "Boop!") {
+      item = `<span class="boop">Boop!</span>`
+    } else if (item[0] === "I") {
+      item = `<span class="dave">I'm sorry, Dave. I'm afraid I can't do that.</span>`
+    }
     var extraClass = ""
     if (i % 2 === 0) {
       extraClass = " gray"
     }
-    $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'"><span>'+item+'</span></div>')
+    $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'">'+item+'</div>')
 
   })
   if (document.getElementById('fancyCheck').checked) {
     $(".display-number").css({
-      'opacity' : 0
+      'opacity' : 0,
     })
     console.log("fancy")
-    var delay = 0
+    var delay = 80
+
     list.forEach(function(item,i){
-      $('#num-'+i).animate({
-        'opacity' : 1,
+      setTimeout(function(){
+        $('#num-'+i).animate({
+          'opacity' : 1,
+        },100)
       },delay)
       delay += 80
     })
