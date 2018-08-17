@@ -5,5 +5,8 @@ button {
   margin-top:5px;
 }
 .lead {
-  color:#aaa
+  color:#888
+}
+.card {
+  min-height:300px;
 }
