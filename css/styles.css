@@ -13,13 +13,17 @@ p {
 }
 .jumbotron {
   padding-top:20px;
+  width:50%;
 }
 .lead {
   color:#888
 }
 .card {
-  min-height:300px;
-  width:40%;
+  box-sizing: border-box;
+  min-height:400px;
+  width:50%;
+  display:inline;
+  transition: all 400ms ease;
 }
 .display-number {
   width:100%;
@@ -36,4 +40,14 @@ p {
 }
 .dave {
   color:#080
+}
+@media screen and (max-width: 992px) {
+  .card, .jumbotron {
+    width:100%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .container {
+    width:100%;
+  }
 }

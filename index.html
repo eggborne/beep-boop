@@ -10,22 +10,24 @@
   </head>
   <body>
     <div class="container">
+      <div class="row">
+
       <div class="jumbotron">
         <h1 class="display-4">Beep-Boop!</h1>
         <p class="lead">Enter a number to see a dazzling display.</p>
         <hr class="my-4">
         <div class="container">
           <div class="row" style="width:100%">
-            <div class="col-md-6">
+            <div class="col-md">
               <input type="number" class="form-control" id="number-input" max="4" placeholder="Enter a number">
             </div>
-            <div class="col-md-6">
+            <div class="col-md">
             </div>
           </div>
           <div class="row">
             <div class="col-md">
               <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="reverseCheck">
+                <input type="checkbox" class="form-check-input" min="0" id="reverseCheck">
                 <label class="form-check-label" for="reverseCheck">Reverse output</label>
               </div>
               <div class="form-group form-check">
@@ -34,6 +36,7 @@
               </div>
             </div>
           </div>
+          <hr class="my-4">
           <div class="row">
             <div class="col-md">
               <button class="btn btn-success btn-lg" href="#" role="button" id="submit-button">Boop Me!</button>
