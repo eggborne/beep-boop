@@ -18,7 +18,9 @@ function boopify(userInput) {
   for (var i=0; i<=toList; i++) {
     var num = i.toString()
     var toPass = num
-    if (num.includes("0")) {
+    if (num.includes("1")) {
+      toPass = "Boop!"
+    } else if (num.includes("0")) {
       toPass = "Beep!"
     }
     output.push(toPass)
