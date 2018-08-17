@@ -1,62 +1,92 @@
 $(function(){
-  $("#submit-button").click(function(){
-    displayBoopedList($('#number-input').val())
+  $('#submit-button').click(function(){
+    displayBoopedList($('#number-input').val());
   })
-})
+  $('#lightTheme').click(function(){
+    switchTheme("light");
+  })
+  $('#darkTheme').click(function(){
+    switchTheme("dark");
+  })
+});
 
-function boopify(userInput) {
-  var output = []
-  var toList = parseInt(userInput)
+function boopify(userInput) { // business logic
+  var output = [];
+  var toList = parseInt(userInput);
   for (var i=0; i<=toList; i++) {
-    var numString = i.toString()
-    var toPass = numString
+    var numString = i.toString();
+    var toPass = "<span style='color:#888'>"+numString+"</span>";
     if (i > 0 && i % 3 === 0) {
-      toPass = "I'm sorry, Dave. I'm afraid I can't do that."
+      toPass = "I'm sorry, Dave. I'm afraid I can't do that.";
     } else if (numString.includes("1")) {
-      toPass = "Boop!"
+      toPass = "Boop!";
     } else if (numString.includes("0")) {
-      toPass = "Beep!"
+      toPass = "Beep!";
     }
-    output.push(toPass)
+    output.push(toPass);
   }
   if (document.getElementById('reverseCheck').checked) {
-    output = output.reverse()
+    output = output.reverse();
   }
-  return output
+  return output;
 }
-function displayBoopedList(userNumber) {
-  $('#display').html("")
-  var list = boopify(userNumber)
+function displayBoopedList(userNumber) { // font-end logic
+  $('#display').html("");
+  var list = boopify(userNumber);
   var delay = 0;
   list.forEach(function(item,i){
     if (item === "Beep!") {
-      item = `<span class="beep">Beep!</span>`
+      item = `<span class="beep">Beep!</span>`;
     } else if (item === "Boop!") {
-      item = `<span class="boop">Boop!</span>`
+      item = `<span class="boop">Boop!</span>`;
     } else if (item[0] === "I") {
-      item = `<span class="dave">I'm sorry, Dave. I'm afraid I can't do that.</span>`
+      item = `<span class="dave">I'm sorry, Dave. I'm afraid I can't do that.</span>`;
     }
     var extraClass = ""
     if (i % 2 === 0) {
-      extraClass = " gray"
+      extraClass = " gray";
     }
-    $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'">'+item+'</div>')
-
+    $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'">'+item+'</div>');
   })
   if (document.getElementById('fancyCheck').checked) {
     $(".display-number").css({
       'opacity' : 0,
-    })
-    console.log("fancy")
-    var delay = 80
-
+      'display' : 'none'
+    });
+    var delay = 80;
     list.forEach(function(item,i){
       setTimeout(function(){
+        $('#num-'+i).css({'display' : 'block'});
         $('#num-'+i).animate({
           'opacity' : 1,
-        },100)
-      },delay)
-      delay += 80
+        },100);
+      },delay);
+      delay += 80;
+    });
+  }
+}
+function switchTheme(newTheme) {
+  if (newTheme === "light") {
+    $('body').css({
+      'background-color' : '#eee'
+    })
+    $('.card').css({
+      'background-color' : 'white'
+    })
+    $('.jumbotron').css({
+      'background-color' : 'white',
+      'color' : 'black'
+    })
+  } else {
+    $('body').css({
+      'background-color' : '#222'
+    })
+    $('.card').css({
+      'background-color' : '#dedede'
+    })
+    $('.jumbotron').css({
+      'background-color' : '#666',
+      'color' : '#ddd'
     })
   }
 }

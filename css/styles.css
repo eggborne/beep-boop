@@ -1,6 +1,8 @@
 body {
+  background-color: #eee;
   overflow-y: scroll;
   padding-bottom:30px;
+  transition: all 400ms ease;
 }
 input {
   margin-bottom:15px;
@@ -14,16 +16,20 @@ p {
 .jumbotron {
   padding-top:20px;
   width:50%;
+  float:left;
+  height:440px;
+  background-color: white;
 }
 .lead {
   color:#888
 }
 .card {
   box-sizing: border-box;
-  min-height:400px;
+  min-height:440px;
   width:50%;
   display:inline;
   transition: all 400ms ease;
+  float:right;
 }
 .display-number {
   width:100%;
@@ -41,13 +47,25 @@ p {
 .dave {
   color:#080
 }
+.form-check-label {
+  margin-right:30px;
+}
 @media screen and (max-width: 992px) {
   .card, .jumbotron {
     width:100%;
   }
 }
+@media screen and (max-width: 768px) {
+  .card, .jumbotron {
+    width:100%;
+    height:500px;
+  }
+}
 @media screen and (max-width: 500px) {
   .container {
     width:100%;
+  }
+  .jumbotron {
+    height:500px;
   }
 }
