@@ -1,10 +1,3 @@
-var gridLayouts = {
-  lowerTitle :
-  [
-    [[4,4,4],'100px']
-
-  ]
-}
 $(function(){
   $("#submit-button").click(function(){
     var userNumber = $('#number-input').val()
@@ -18,7 +11,9 @@ function boopify(userInput) {
   for (var i=0; i<=toList; i++) {
     var num = i.toString()
     var toPass = num
-    if (num.includes("1")) {
+    if (i > 0 && i % 3 === 0) {
+      toPass = "I'm sorry, Dave. I'm afraid I can't do that."
+    } else if (num.includes("1")) {
       toPass = "Boop!"
     } else if (num.includes("0")) {
       toPass = "Beep!"
