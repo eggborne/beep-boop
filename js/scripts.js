@@ -8,6 +8,20 @@ var gridLayouts = {
 $(function(){
   $("#submit-button").click(function(){
     var userNumber = $('#number-input').val()
-    console.log(userNumber)
+    console.log(boopify(userNumber))
   })
 })
+
+function boopify(userInput) {
+  var output = []
+  var toList = parseInt(userInput)
+  for (var i=0; i<=toList; i++) {
+    var num = i.toString()
+    var toPass = num
+    if (num.includes("0")) {
+      toPass = "Beep!"
+    }
+    output.push(toPass)
+  }
+  return output
+}
