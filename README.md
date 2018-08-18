@@ -39,6 +39,10 @@ A website that takes a user-submitted number and outputs an enumerated list with
   * **Example Input: 10**
   * **Example Output: ["Beep!", "Boop!", 2, "I'm sorry, Dave. I'm afraid I can't do that.", 4, 5, "I'm sorry, Dave. I'm afraid I can't do that.", 7, 8, "I'm sorry, Dave. I'm afraid I can't do that.", "Boop!"]**
 
+* Program does not accept an empty string
+  * **Example Input: ""**
+  * **Example Output: none**
+
 ## Setup/Installation Instructions
 
 Open a terminal and clone this repository by typing:
