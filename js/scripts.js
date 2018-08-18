@@ -1,5 +1,7 @@
+var gTimeouts = []
 $(function(){
   $('#submit-button').click(function(){
+    cancelTimeouts()
     displayBoopedList($('#number-input').val());
   })
   $('#lightTheme').click(function(){
@@ -9,7 +11,6 @@ $(function(){
     switchTheme("dark");
   })
 });
-
 function boopify(userInput) { // business logic
   var output = [];
   var toList = parseInt(userInput);
@@ -56,13 +57,14 @@ function displayBoopedList(userNumber) { // font-end logic
     });
     var delay = 0;
     list.forEach(function(item,i){
-      setTimeout(function(){
+      var timeout = setTimeout(function(){
         $('#num-'+i).css({'display' : 'block'});
         $('#num-'+i).animate({
           'opacity' : 1,
           'height': "2em",
         },200);
       },delay);
+      gTimeouts.push(timeout)
       delay += 100;
     });
   }
@@ -91,4 +93,9 @@ function switchTheme(newTheme) {
       'color' : '#ddd'
     })
   }
+}
+function cancelTimeouts() {
+  gTimeouts.forEach(function(timeout) {
+    clearTimeout(timeout)
+  })
 }
