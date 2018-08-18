@@ -22,12 +22,12 @@ $(function(){
         $('#display').html("");
         $('#list-card').css({
           'opacity' : '0',
-          'transform' : 'translateY(300px)'
+          'transform' : 'translateY(100%)'
         });
         flipStartButton()
         loadingBar.reveal() // calls display function after animation
       } else {
-        throb("input")
+        throb("#number-input")
       }
     } else {
       flipStartButton()

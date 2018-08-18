@@ -79,8 +79,8 @@ h1 {
 }
 #list-card {
   opacity:0;
-  transform: translateY(30%);
-  transition: transform 400ms ease, opacity 200ms ease;
+  transform: translateY(100%);
+  transition: transform 300ms ease, opacity 80ms ease;
   
 }
 .display-number {
