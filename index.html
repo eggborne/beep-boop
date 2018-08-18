@@ -9,7 +9,7 @@
     <link href="css/styles.css" rel="stylesheet "type="text/css">
     <title>Beep-Boop!</title>
   </head>
-  <body>
+  <body onload="animateIntro()">
     <div class="container">
       <div class="jumbotron">
         <h1 class="display-4"><strong>Beep-Boop!</strong></h1>
@@ -17,7 +17,6 @@
         <p class="tiny">*may also contain beeps</p>
         <hr class="my-4">
         <div class="container">
-
           <div class="row">
             <div class="col-md">
               <input type="number" class="form-control-md" id="number-input" max="4" placeholder="Enter a number">
@@ -38,7 +37,6 @@
             </div>
           </div>
           <div class="row">
-
             <div class="col-md">
               <div class="form-group form-check">
                 <input type="checkbox" class="form-check-input form-control-md" min="0" id="reverseCheck">
@@ -49,8 +47,6 @@
                 <label class="form-check-label col-form-label-md" for="fancyCheck">Fancy reveal</label>
               </div>
             </div>
-
-            
           </div>
           <hr class="my-4">
           <div class="row">
