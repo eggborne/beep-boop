@@ -3,15 +3,18 @@ var gWordHeight = 0;
 var gListing = false
 $(function(){
   $('#submit-button').click(function(event){
-    if (!$('#number-input').val().length) {
-      pulseBG('input',"red")
-    } else {
-      var versionClicked = flipStartButton()
-      if (versionClicked==="start") {
+    if (!gListing) {
+      if ($('#number-input').val().length) {
+        flipStartButton()
         displayBoopedList($('#number-input').val());
       } else {
-        cancelTimeouts()
+        throb('input',"red")
       }
+    } else {
+      flipStartButton()
+      cancelTimeouts()
+      gListing = false
+      
     }
     $('#number-input').val("")
     event.preventDefault()
@@ -126,7 +129,7 @@ function flipStartButton() {
     return "stop"
   }
 }
-function pulseBG(element,color) {
+function throb(element,color) {
   $(element).css({
     'transform' : 'scaleX(1.15) scaleY(1.15)'
   })
