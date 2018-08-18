@@ -51,17 +51,19 @@ function displayBoopedList(userNumber) { // font-end logic
   if (document.getElementById('fancyCheck').checked) {
     $(".display-number").css({
       'opacity' : 0,
+      'height': 0,
       'display' : 'none'
     });
-    var delay = 80;
+    var delay = 0;
     list.forEach(function(item,i){
       setTimeout(function(){
         $('#num-'+i).css({'display' : 'block'});
         $('#num-'+i).animate({
           'opacity' : 1,
-        },100);
+          'height': "2em",
+        },200);
       },delay);
-      delay += 80;
+      delay += 100;
     });
   }
 }
