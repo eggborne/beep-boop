@@ -20,6 +20,10 @@ input:first-of-type {
 h1 {
   margin-bottom:25px;
 }
+#submit-button {
+  width:200px;
+  transition: all 400ms ease;
+}
 .container {
   height:auto;
   opacity:0;

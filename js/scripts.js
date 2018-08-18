@@ -1,8 +1,16 @@
-var gTimeouts = []
+var gTimeouts = [];
+var gWordHeight = 0;
+var gListing = false
 $(function(){
   $('#submit-button').click(function(){
-    cancelTimeouts()
-    displayBoopedList($('#number-input').val());
+    var versionClicked = flipStartButton()
+    console.log("clicked " + versionClicked)
+    if (versionClicked==="start") {
+      displayBoopedList($('#number-input').val());
+    } else {
+      cancelTimeouts()
+    }
+    
   })
   $('#lightTheme').click(function(){
     switchTheme("light");
@@ -36,7 +44,6 @@ function cancelTimeouts() {
     clearTimeout(timeout)
   })
 }
-wordHeight = 0
 function displayBoopedList(userNumber) {
   $('#display').html("");
   var list = boopify(userNumber);
@@ -55,28 +62,27 @@ function displayBoopedList(userNumber) {
     }
     $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'">'+item+'</div>');
   })
-  if (document.getElementById('fancyCheck').checked) {
-    wordHeight = $('#num-0').height();
-    console.log("height was " + wordHeight)
-    $(".display-number").css({
-      'opacity' : '0',
-      'height' : '0px'
-    });
-    var delay = 0;
-    list.forEach(function(item,i){
-      var timeout = setTimeout(function(){
-        $('#num-'+i).animate({
-          // 'height' : wordHeight
-        },300);
-        $('#num-'+i).animate({
-          'opacity' : '1',
-          'height' : wordHeight
-        },150);
-      },delay);
-      gTimeouts.push(timeout)
-      delay += 80;
-    });
-  }
+  gListing = true
+  wordHeight = $('#num-0').height();
+  $(".display-number").css({
+    'opacity': '0',
+    'height': '0px'
+  });
+  var delay = 0;
+  list.forEach(function (item, i) {
+    var timeout = setTimeout(function () {
+      $('#num-' + i).animate({
+        'opacity': '1',
+        'height': wordHeight+"px"
+      }, 150);
+      if (i == list.length - 1) {
+        gListing = false
+        flipStartButton()
+      }
+    }, delay);
+    gTimeouts.push(timeout)
+    delay += 80;
+  });
 }
 function switchTheme(newTheme) {
   if (newTheme === "light") {
@@ -101,6 +107,21 @@ function switchTheme(newTheme) {
       'background-color' : '#666',
       'color' : '#ddd'
     })
+  }
+}
+function flipStartButton() {
+  if ($("#submit-button").hasClass('btn-success')) {
+    console.log("cklass")
+    $("#submit-button").text("STOP");
+    $("#submit-button").removeClass('btn-success')
+    $("#submit-button").addClass('btn-danger')
+    return "start"
+  } else {
+    console.log("no class")
+    $("#submit-button").text("Boopify!");
+    $("#submit-button").removeClass('btn-danger')
+    $("#submit-button").addClass('btn-success')
+    return "stop"
   }
 }
 function animateIntro() {
