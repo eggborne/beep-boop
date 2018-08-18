@@ -2,15 +2,19 @@ var gTimeouts = [];
 var gWordHeight = 0;
 var gListing = false
 $(function(){
-  $('#submit-button').click(function(){
-    var versionClicked = flipStartButton()
-    console.log("clicked " + versionClicked)
-    if (versionClicked==="start") {
-      displayBoopedList($('#number-input').val());
+  $('#submit-button').click(function(event){
+    if (!$('#number-input').val().length) {
+      pulseBG('input',"red")
     } else {
-      cancelTimeouts()
+      var versionClicked = flipStartButton()
+      if (versionClicked==="start") {
+        displayBoopedList($('#number-input').val());
+      } else {
+        cancelTimeouts()
+      }
     }
-    
+    $('#number-input').val("")
+    event.preventDefault()
   })
   $('#lightTheme').click(function(){
     switchTheme("light");
@@ -123,6 +127,27 @@ function flipStartButton() {
     $("#submit-button").addClass('btn-success')
     return "stop"
   }
+}
+function pulseBG(element,color) {
+  $(element).css({
+    'transform' : 'scaleX(1.15) scaleY(1.15)'
+  })
+  setTimeout(function(){
+    $(element).css({
+      'transform' : 'scaleX(1) scaleY(1)'
+    })
+    setTimeout(function(){
+      $(element).css({
+        'transform' : 'scaleX(1.1) scaleY(1.1)'
+      })
+      setTimeout(function(){
+        $(element).css({
+          'transform' : 'scaleX(1) scaleY(1)'
+        })
+      },100)
+    },100)
+  },100)
+  
 }
 function animateIntro() {
   $('.container').css({
