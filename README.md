@@ -9,8 +9,6 @@
 A website that takes a user-submitted number and outputs an enumerated list with some numbers replaced with cute words/phrases à la FizzBuzz.
 
 ## Technologies Used:
-* HTML
-* CSS
 * JavaScript
 * jQuery
 * Bootstrap
@@ -32,7 +30,7 @@ A website that takes a user-submitted number and outputs an enumerated list with
   * **Example Output: ["Beep!", "Boop!", 2, "I'm sorry, Dave. I'm afraid I can't do that."]**
 
 
-* Program lists numbers in reverse order when "Reverse order" box is checked
+* Program lists numbers in reverse order when "Reverse output" box is checked
   * **Example Input: 3**
   * **Example Output: ["I'm sorry, Dave. I'm afraid I can't do that.", 2, "Boop!", "Beep!"]**
 
@@ -51,7 +49,7 @@ Navigate to the cloned directory and open index.html in your favorite web browse
 
 ## Sources:
 * [Mozilla Developer Network](https://developer.mozilla.org/)
-* [Bootstrap 3.3.7 Documentation](https://getbootstrap.com/docs/3.3/components/)
+* [Bootstrap 4.1 Documentation](https://getbootstrap.com/docs/4.1/)
 * [jQuery API Documentation](https://api.jquery.com/)
 * [Stack Overflow](https://stackoverflow.com/)
 * [JavaScript Weekly](https://javascriptweekly.com/)
