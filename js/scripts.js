@@ -36,6 +36,7 @@ function cancelTimeouts() {
     clearTimeout(timeout)
   })
 }
+wordHeight = 0
 function displayBoopedList(userNumber) {
   $('#display').html("");
   var list = boopify(userNumber);
@@ -55,22 +56,25 @@ function displayBoopedList(userNumber) {
     $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'">'+item+'</div>');
   })
   if (document.getElementById('fancyCheck').checked) {
+    wordHeight = $('#num-0').height();
+    console.log("height was " + wordHeight)
     $(".display-number").css({
-      'opacity' : 0,
-      'height': 0,
-      'display' : 'none'
+      'opacity' : '0',
+      'height' : '0px'
     });
     var delay = 0;
     list.forEach(function(item,i){
       var timeout = setTimeout(function(){
-        $('#num-'+i).css({'display' : 'block'});
         $('#num-'+i).animate({
-          'opacity' : 1,
-          'height': "2em",
-        },200);
+          // 'height' : wordHeight
+        },300);
+        $('#num-'+i).animate({
+          'opacity' : '1',
+          'height' : wordHeight
+        },150);
       },delay);
       gTimeouts.push(timeout)
-      delay += 100;
+      delay += 80;
     });
   }
 }
