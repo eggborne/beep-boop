@@ -11,7 +11,7 @@ $(function(){
     switchTheme("dark");
   })
 });
-function boopify(userInput) { // business logic
+function boopify(userInput) {
   var output = [];
   var toList = parseInt(userInput);
   for (var i=0; i<=toList; i++) {
@@ -31,7 +31,12 @@ function boopify(userInput) { // business logic
   }
   return output;
 }
-function displayBoopedList(userNumber) { // font-end logic
+function cancelTimeouts() {
+  gTimeouts.forEach(function(timeout) {
+    clearTimeout(timeout)
+  })
+}
+function displayBoopedList(userNumber) {
   $('#display').html("");
   var list = boopify(userNumber);
   var delay = 0;
@@ -94,8 +99,12 @@ function switchTheme(newTheme) {
     })
   }
 }
-function cancelTimeouts() {
-  gTimeouts.forEach(function(timeout) {
-    clearTimeout(timeout)
+function animateIntro() {
+  $('.container').css({
+    'opacity':1,
+  })
+  $('body').css({
+    'transform':'scaleX(1) scaleY(1)',
+    'opacity':1
   })
 }

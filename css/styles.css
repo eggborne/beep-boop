@@ -4,7 +4,9 @@ body {
   overflow-y: scroll;
   padding-bottom:30px;
   min-width:360px;
-  transition: all 400ms ease;
+  transform:scaleX(1.2) scaleY(1.2);
+  opacity:0;
+  transition: all 400ms ease, transform 600ms ease;
 }
 p {
   padding:0;
@@ -17,6 +19,8 @@ h1 {
 }
 .container {
   height:auto;
+  opacity:0;
+  transition: all 400ms ease;
 }
 .jumbotron, .card {
   border: 1px solid #888;
@@ -33,7 +37,6 @@ h1 {
   margin-bottom:2px;
   color:#999
 }
-
 .tiny {
   font-size:10px;
   color:#aaa
