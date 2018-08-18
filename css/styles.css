@@ -3,7 +3,7 @@ body {
   background-color: #ccc;
   overflow-y: scroll;
   padding-bottom:30px;
-  min-width:400px;
+  min-width:360px;
   transition: all 400ms ease;
 }
 p {
@@ -41,7 +41,7 @@ h1 {
 .card {
   box-sizing: border-box;
   width:50%;
-  min-width:400px;
+  min-width:360px;
   min-height:60px;
 }
 .display-number {
@@ -85,5 +85,12 @@ h1 {
   }
   .card {
     width:100vw;
+  }
+  .jumbotron {
+    border: none;
+  }
+  .card {
+    border-left:none;
+    border-right:none;
   }
 }
