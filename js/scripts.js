@@ -115,13 +115,11 @@ function switchTheme(newTheme) {
 }
 function flipStartButton() {
   if ($("#submit-button").hasClass('btn-success')) {
-    console.log("cklass")
     $("#submit-button").text("STOP");
     $("#submit-button").removeClass('btn-success')
     $("#submit-button").addClass('btn-danger')
     return "start"
   } else {
-    console.log("no class")
     $("#submit-button").text("Boopify!");
     $("#submit-button").removeClass('btn-danger')
     $("#submit-button").addClass('btn-success')
