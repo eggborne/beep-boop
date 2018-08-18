@@ -3,7 +3,7 @@ body {
   background-color: #ccc;
   overflow-y: scroll;
   padding-bottom:30px;
-  min-width:360px;
+  min-width:300px;
   transform:scaleX(1.2) scaleY(1.2);
   opacity:0;
   transition: all 400ms ease, transform 600ms ease;
@@ -13,6 +13,9 @@ p {
 }
 input {
   padding-left:5px;
+}
+input:first-of-type {
+  margin-bottom: 20px
 }
 h1 {
   margin-bottom:25px;
@@ -44,7 +47,7 @@ h1 {
 .card {
   box-sizing: border-box;
   width:50%;
-  min-width:360px;
+  min-width:300px;
   min-height:60px;
 }
 .display-number {
@@ -83,17 +86,27 @@ h1 {
   body {
     padding:0px 0px 30px 0px;
   }
+  h1 strong {
+    font-size:0.8em
+  }
+  button {
+    margin-left:15px;
+  }
   .container {
     padding:0px;
   }
-  .card {
-    width:100vw;
-  }
-  .jumbotron {
-    border: none;
-  }
-  .card {
+  .jumbotron, .card {
     border-left:none;
     border-right:none;
+  }
+  .card {
+    
+    width:100vw;
+  }
+  .lead {
+    font-size:0.9em;
+  }
+  #display {
+    font-size:0.8em;
   }
 }
