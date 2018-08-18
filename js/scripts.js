@@ -1,20 +1,39 @@
 var gTimeouts = [];
+var gUserNumber = 0;
 var gWordHeight = 0;
-var gListing = false
+var gListing = false;
+var gListY = 0
+var loadingPhrases = 
+[
+  "Initializing boop sequence...",
+  "Loading beeps",
+  "Loading boops",
+  "Connecting Dave nodes",
+  "Reticulating splines",
+  "Calibrating beepulators",
+  "Transmitting boopified data..."
+];
+var loadingBar = new LoadingBar()
 $(function(){
   $('#submit-button').click(function(event){
     if (!gListing) {
       if ($('#number-input').val().length) {
+        gUserNumber = $('#number-input').val()
+        $('#display').html("");
+        $('#list-card').css({
+          'opacity' : '0',
+          'transform' : 'translateY(300px)'
+        });
         flipStartButton()
-        displayBoopedList($('#number-input').val());
+        loadingBar.reveal() // calls display function after animation
       } else {
-        throb('input',"red")
+        throb("input")
       }
     } else {
       flipStartButton()
       cancelTimeouts()
+      loadingBar.reset()
       gListing = false
-      
     }
     $('#number-input').val("")
     event.preventDefault()
@@ -25,6 +44,8 @@ $(function(){
   $('#darkTheme').click(function(){
     switchTheme("dark");
   })
+  gListY = $('#list-card').offset().top
+  console.log(gListY)
 });
 function boopify(userInput) {
   var output = [];
@@ -52,9 +73,12 @@ function cancelTimeouts() {
   })
 }
 function displayBoopedList(userNumber) {
-  $('#display').html("");
   var list = boopify(userNumber);
   var delay = 0;
+  $('#list-card').css({
+    'opacity' : '1',
+    'transform' : 'translateY(0)'
+  });
   list.forEach(function(item,i){
     if (item === "Beep!") {
       item = `<span class="beep">Beep!</span>`;
@@ -69,7 +93,6 @@ function displayBoopedList(userNumber) {
     }
     $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'">'+item+'</div>');
   })
-  gListing = true
   wordHeight = $('#num-0').height();
   $(".display-number").css({
     'opacity': '0',
@@ -88,7 +111,7 @@ function displayBoopedList(userNumber) {
       }
     }, delay);
     gTimeouts.push(timeout)
-    delay += 80;
+    delay += 50;
   });
 }
 function switchTheme(newTheme) {
@@ -118,7 +141,7 @@ function switchTheme(newTheme) {
 }
 function flipStartButton() {
   if ($("#submit-button").hasClass('btn-success')) {
-    $("#submit-button").text("STOP");
+    $("#submit-button").text("Cancel");
     $("#submit-button").removeClass('btn-success')
     $("#submit-button").addClass('btn-danger')
     return "start"
@@ -148,14 +171,77 @@ function throb(element,color) {
       },100)
     },100)
   },100)
+}
+function showLoadLegend(index) {
+  $('#bar-label').text(loadingPhrases[index])
+}
+function LoadingBar() {
   
+  this.reset = function(){
+    $('#loading-bar').css({
+      'width' : '0%'
+    });
+    $('#loading-bar-bg').css({
+      'width' : '100%'
+    });
+    $('#progress-card').css({
+      'opacity':'0'
+    });
+    $('#progress-card').css({
+      'display' : 'none'
+    });
+  }
+  this.reveal = function(){
+    gListing = true
+    $('#progress-card').css({
+      'opacity' : '1',
+      'transform' : 'scaleX(1) scaleY(1)',
+      'display' : 'inline-block'
+    });
+    $('.progress').css({
+      'opacity' : '1'
+    });
+    $('#bar-label').css({
+      'opacity' : '1'
+    });
+    showLoadLegend(0);
+    gTimeouts.push(setTimeout(function(){
+      $('#loading-bar').css({
+        'width' : '100%'
+      });
+      $('#loading-bar-bg').css({
+        'width' : '0%'
+      });
+      showLoadLegend(1);
+      gTimeouts.push(setTimeout(function(){
+        showLoadLegend(2);
+        gTimeouts.push(setTimeout(function(){
+          showLoadLegend(3);
+          gTimeouts.push(setTimeout(function(){
+            showLoadLegend(4);
+            gTimeouts.push(setTimeout(function(){
+              showLoadLegend(5);
+              gTimeouts.push(setTimeout(function(){
+                showLoadLegend(6);
+                gTimeouts.push(setTimeout(function(){
+                  showLoadLegend(7);
+                  displayBoopedList(gUserNumber);
+                  loadingBar.reset()
+                },1200));
+              },1200));
+            },1200));
+          },1200));
+        },1200));
+      },1200));
+    },1000));
+  }
 }
 function animateIntro() {
   $('.container').css({
-    'opacity':1,
+    'opacity':'1'
   })
   $('body').css({
     'transform':'scaleX(1) scaleY(1)',
-    'opacity':1
+    'opacity':'1'
   })
 }

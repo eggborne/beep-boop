@@ -25,6 +25,22 @@ h1 {
   width:200px;
   transition: all 400ms ease;
 }
+.progress {
+  opacity:0;
+  transition: all 500ms ease;
+}
+#loading-bar, #loading-bar-bg {
+  
+  transition: all 6000ms linear;
+}
+#bar-label {
+  height:20px;
+  font-size:1em;
+  text-align: center;
+  transform: translateY(-50%);
+  margin:10px 15px 15px 15px;
+  transition: opacity 500ms ease;
+}
 .container {
   height:auto;
   opacity:0;
@@ -53,7 +69,19 @@ h1 {
   box-sizing: border-box;
   width:50%;
   min-width:300px;
-  min-height:60px;
+  min-height:100px;
+}
+#progress-card {
+  opacity:0;
+  transform:scaleX(1.1) scaleY(1.1);
+  transition: all 500ms ease;
+  
+}
+#list-card {
+  opacity:0;
+  transform: translateY(30%);
+  transition: transform 400ms ease, opacity 200ms ease;
+  
 }
 .display-number {
   width:100%;

@@ -52,9 +52,25 @@
           </div>
         </div>
       </div>
-      <div class="card card-success">
-        <div class="card-body" id="display">
-        <!-- numbers are listed here -->
+      <div class="card card-success" id="progress-card">
+        <div class="card-body">
+          <div id="loading-area">
+            <div id="bar-label">
+              <!-- progress messages go here -->
+            </div>
+            <div class="progress" style="transform:scaleY(1.5)">
+              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" id="loading-bar" style="width:0%"></div>
+              <div class="progress-bar" role="progressbar" id="loading-bar-bg" style="width:100%;background-color:#ccc"></div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      <div class="card card-success" id="list-card">
+        <div class="card-body">
+          <div id="display">
+            <!-- numbers are listed here -->
+          </div>
         </div>
       </div>
     </div>
