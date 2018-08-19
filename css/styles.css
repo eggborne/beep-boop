@@ -1,149 +1,151 @@
 body {
-  padding-top:30px;
+  padding-top: 30px;
   background-color: #ccc;
   overflow-y: scroll;
-  padding-bottom:30px;
-  min-width:300px;
-  transform:scaleX(1.2) scaleY(1.2);
-  opacity:0;
+  padding-bottom: 30px;
+  min-width: 300px;
+  transform: scaleX(1.2) scaleY(1.2);
+  opacity: 0;
   transition: all 400ms ease, transform 600ms ease;
 }
 p {
-  padding:0;
+  padding: 0;
 }
 input {
-  padding-left:5px;
+  padding-left: 5px;
 }
-input:first-of-type {
+h1 {
+  margin-bottom: 25px;
+}
+#number-input {
   margin-bottom: 20px;
   transition: all 300ms ease;
 }
-h1 {
-  margin-bottom:25px;
-}
-#submit-button {
-  width:200px;
-  transition: all 400ms ease;
-}
-.progress {
-  opacity:0;
+#loading-area {
+  pointer-events: none;
+  width: 100%;
+  height : 0px;
   transition: all 500ms ease;
 }
+#progress-card {
+  margin-top: 20px;
+  margin-left: 0px;
+  left: 0;
+  width: 100%;
+  transform: scaleY(0);
+  transform-origin: 0% 0%;
+  background-color: #dedede;
+  transition: all 500ms ease;
+}
+#list-card {
+  opacity: 0;
+  transform: translateX(30%);
+  transition: all 500ms ease, opacity 300ms ease;
+  
+}
+#submit-button {
+  width: 200px;
+  transition: all 400ms ease;
+}
 #loading-bar, #loading-bar-bg {
-  transition: all 6000ms linear;
+  transition: width 2000ms linear, opacity 300ms ease;
 }
 #bar-label {
-  height:20px;
-  font-size:1em;
+  height: 20px;
+  font-size: 1em;
   text-align: center;
   transform: translateY(-50%);
-  margin:10px 15px 15px 15px;
+  margin: 10px 15px 15px 15px;
   transition: opacity 500ms ease;
 }
+.no-transition {
+  transition: none !important;
+}
 .container {
-  height:auto;
-  opacity:0;
+  margin-left: auto;
+  margin-right: auto;
+  height: auto;
+  opacity: 0;
   transition: all 400ms ease;
 }
 .jumbotron, .card {
   border: 1px solid #888;
+  transition: all 300ms ease;
+  width: 50%;
+  min-width: 300px;
 }
 .jumbotron {
-  padding-top:20px;
-  padding-bottom:30px;
-  width:50%;
-  height:auto;
-  float:left;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  min-width:300px;
+  height: auto;
+  float: left;
   background-color: #efefef;
+  transition: all 300ms ease;
 }
 .lead {
   margin-bottom:2px;
-  color:#999
+  color: #999
 }
 .tiny {
   font-size:10px;
-  color:#aaa
+  color: #aaa
 }
 .card {
-  width:50%;
-  min-width:300px;
-  min-height:100px;
-  background-color:#dedede
-}
-#progress-card {
-  background-color: #dedede;
-  opacity:0;
-  transform:scaleX(1.1) scaleY(1.1);
-  transition: all 500ms ease;
-  position:relative;
-}
-#list-card {
-  opacity:0;
-  transform:scaleX(1.1) scaleY(1.1);
-  transition: transform 300ms ease, opacity 80ms ease;
   
+  min-height: 100px;
+  background-color: #dedede
 }
 .display-number {
-  width:100%;
+  width: 100%;
 }
 .gray {
   background-color: #fafafa
 }
 .beep {
-  color:#600
+  color: #600
 }
 .boop {
-  color:#006
+  color: #006
 }
 .dave {
-  color:#060
+  color: #060
 }
 .form-check-label {
-  margin-right:30px;
+  margin-right: 30px;
 }
 .form-group.form-check {
-  height:10px;
+  height: 10px;
 }
 @media screen and (max-width: 992px) {
-  .card, .jumbotron {
-    width:100%;
+  .jumbotron, .card {
+    width: 80%;
+    margin-left: 10%;
+  }
+  #list-card {
+    transform: translateY(30%);
   }
 }
 @media screen and (max-width: 768px) {
-  /* .card, .jumbotron {
-    width:100%;
-  } */
+  .jumbotron, .card {
+    width: 100%;
+    margin-left: 0%;
+  }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 575px) {
   body {
-    padding:0px 0px 30px 0px;
+    padding: 0px 0px 30px 0px;
   }
   h1 strong {
-    font-size:0.8em
+    font-size: 0.8em
   }
   #submit-button {
-    margin-left:15px;
-    width:150px;
-  }
-  .container {
-    padding:0px;
-  }
-  .jumbotron, .card {
-    border-left:none;
-    border-right:none;
-  }
-  .card {
-    width:100vw;
+    width: 140px;
   }
   .lead {
-    font-size:0.9em;
+    font-size: 0.9em;
   }
   #display {
-    font-size:0.8em;
-  }
-}
-@media screen and (max-width: 360px) {
-  #submit-button {
-    width:110px;
+    font-size: 0.8em;
   }
 }

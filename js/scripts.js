@@ -4,6 +4,7 @@
 var gTimeouts = [];
 var gUserNumber = 0;
 var gWordHeight = 0;
+var gLoadingHeight = 0;
 var gListingNow = false;
 var gLoadingPhrases = 
 [
@@ -18,44 +19,37 @@ var gLoadingPhrases =
 /**
  * Startup actions
  */
-var loadingBar = new LoadingBar()
+var loadingBar = new LoadingBar();
 $(function(){
   $('#submit-button').click(function(event){
     if (!gListingNow) {
-			var loadDelay = 1;
       if ($('#number-input').val().length) {
-				gUserNumber = $('#number-input').val()
-				// clear and hide the list, if one's already there
-				if ($('#list-card').css('opacity') != "0") {
-					console.log($('#list-card').css('opacity') + "  length!!")
-					$('#display').html("");
-					$('#list-card').css({
-						'opacity' : '0',
-						'transform' : 'scaleX(1.1) scaleY(1.1)'
-					});
-					loadDelay = 500
+				gUserNumber = $('#number-input').val();
+				// hide the list, if one's already there
+				if ($('#list-card').css('opacity') !== "0") {
+					hideList();
 				}
-				flipStartButton()
-				setTimeout(function(){
-					loadingBar.startSequence() // calls displayBoopedList() after animation completes
-				},loadDelay)
+        loadingBar.startLoadingSequence(); // calls displayBoopedList() after animation completes
+        flipStartButton();
       } else {
-        throb("#number-input")
+        throb("#number-input");
       }
     } else {
-      flipStartButton()
-      cancelTimeouts()
-      loadingBar.reset()
-      gListingNow = false
+      flipStartButton();
+      cancelTimeouts();
+      loadingBar.reset();
+      gListingNow = false;
+      $('#number-input').val("");
     }
-    $('#number-input').val("")
   })
   $('#lightTheme').click(function(){
     switchTheme("light");
   })
   $('#darkTheme').click(function(){
     switchTheme("dark");
-	})
+  })
+  // get the amount to expand #loading-area by when displaying
+  gLoadingHeight = $('#progress-card').height()
 });
 /**
  * Business logic
@@ -87,101 +81,12 @@ function boopify(userInput) {
 /**
  * Front-end logic
  */
-function flipStartButton() {
-  if ($("#submit-button").hasClass('btn-success')) {
-    $("#submit-button").text("Cancel");
-    $("#submit-button").removeClass('btn-success')
-    $("#submit-button").addClass('btn-danger')
-    return "start"
-  } else {
-    $("#submit-button").text("Boopify!");
-    $("#submit-button").removeClass('btn-danger')
-    $("#submit-button").addClass('btn-success')
-    return "stop"
-  }
-}
-function LoadingBar() {
-  this.reset = function(){
-    $('#loading-bar').css({
-      'width' : '0%'
-    });
-    $('#loading-bar-bg').css({
-      'width' : '100%'
-    });
-    $('#progress-card').css({
-			'opacity':'0',
-			'transform':'scaleX(1.1) scaleY(1.1)',
-		});
-		setTimeout(function(){
-			$('#progress-card').css({
-				'display' : 'none'
-			});
-		},500)
-    
-	}
-	this.showLoadLegend = function(index) {
-		$('#bar-label').text(gLoadingPhrases[index]);
-	}
-  this.startSequence = function(){
-    gListingNow = true
-    $('#progress-card').css({
-			'display' : 'inline-block',
-      'opacity' : '1',
-      'transform' : 'scaleX(1) scaleY(1)',
-    });
-    $('.progress').css({
-      'opacity' : '1'
-    });
-    $('#bar-label').css({
-      'opacity' : '1'
-		});
-		// show "Initializing..." on progress card before bar begins growing
-		this.showLoadLegend(0);
-		// show rest of load legends in sequence
-    gTimeouts.push(setTimeout(function(){
-			/**
-			 * #loading-bar widens while #loading-bar-bg shortens,
-			 * creating the illusion of one bar with a background.
-			 */
-      $('#loading-bar').css({
-        'width' : '100%' // will take 6000ms (per transition-duration)
-      });
-      $('#loading-bar-bg').css({
-        'width' : '0%' // will take 6000ms 
-			});
-      loadingBar.showLoadLegend(1);
-      gTimeouts.push(setTimeout(function(){
-        loadingBar.showLoadLegend(2);
-        gTimeouts.push(setTimeout(function(){
-          loadingBar.showLoadLegend(3);
-          gTimeouts.push(setTimeout(function(){
-            loadingBar.showLoadLegend(4);
-            gTimeouts.push(setTimeout(function(){
-              loadingBar.showLoadLegend(5);
-              gTimeouts.push(setTimeout(function(){
-                loadingBar.showLoadLegend(6);
-                gTimeouts.push(setTimeout(function(){
-									// finally produce and display the result
-									loadingBar.reset()
-                  displayBoopedList(boopify(gUserNumber));
-                },800)); // ms to show "Transmitting..."; bar now full because (1200ms*5) === 6000ms
-              },1200)); // 5th 
-            },1200)); // 4th
-          },1200)); // 3rd
-        },1200)); // 2nd
-      },1200)); // ms to show 1st legend
-    },1000)); // ms after "Initializing..." appears but before bar moves
-  }
-}
 function displayBoopedList(list) {
 	// restore list card to visible state
-	setTimeout(function(){
-		$('#list-card').css({
-			'transform' : 'scaleX(1) scaleY(1)',
-			'opacity' : '1'
-		});
-	},550) // waits for loading bar to vanish completely
-
+  $('#list-card').css({
+    'transform' : 'none',
+    'opacity' : '1'
+  });
 	// prepare and append HTML to DOM
   list.forEach(function(item,i){
 		// give appropriate styling tags to boopified strings
@@ -199,90 +104,197 @@ function displayBoopedList(list) {
 		}
 		// append a div with this style and content to #display
     $('#display').append('<div id="num-'+i+'" class="display-number'+extraClass+'">'+item+'</div>');
-	})
+	});
 	// get the exact height of the first (always present) list item
 	gWordHeight = $('#num-0').height();
 	// collapse/hide all the list items
   $(".display-number").css({
     'opacity': '0',
     'height': '0px'
-	});
-	setTimeout(function(){
-		var delay = 0; // increases each loop for "cascading" effect
-		list.forEach(function (item, i) {
-			gTimeouts.push(setTimeout(function () {
-				$('#num-' + i).animate({
-					'opacity': '1',
-					'height': gWordHeight+"px"
-				}, 150);
-				// on the last one, flip the start button to green
-				if (i == list.length - 1) {
-					gListingNow = false
-					flipStartButton()
-				}
-			}, delay));
-			delay += 50;
-		});
-	},500) // waits for list card to "land" before unfurling
-		
+  });
+  // restore list items' opacity and height
+  var delay = 0; // increases each loop for "cascading" effect
+  list.forEach(function (item, i) {
+    gTimeouts.push(setTimeout(function () {
+      $('#num-' + i).animate({
+        'opacity': '1',
+        'height': gWordHeight+"px"
+      }, 150);
+      // on the last one, flip the start button to green
+      if (i == list.length - 1) {
+        gListingNow = false;
+        flipStartButton();
+        $('#number-input').val("");
+      }
+    }, delay));
+    delay += 80;
+  });
+}
+function hideList() {
+  if ($('body').width() > 992) {
+    $('#list-card').css({
+      'opacity' : '0',
+      'transform' : 'translateX(30%)'
+    });
+  } else {
+    $('#list-card').css({
+      'opacity' : '0',
+      'transform' : 'translateY(30%)'
+    });
+  }
+}
+
+/**
+ * Changes the text and color of the #submit-button element.
+ */
+function flipStartButton() {
+  if ($("#submit-button").hasClass('btn-success')) {
+    $("#submit-button").text("Cancel");
+    $("#submit-button").removeClass('btn-success');
+    $("#submit-button").addClass('btn-danger');
+    return "start"
+  } else {
+    $("#submit-button").text("Boopify!");
+    $("#submit-button").removeClass('btn-danger');
+    $("#submit-button").addClass('btn-success');
+    return "stop"
+  }
+}
+function LoadingBar() {
+  this.reset = function(){
+    // turn off bar transitions so they go to 0 instantly
+    $('#loading-bar').addClass('no-transition')
+    $('#loading-bar-bg').addClass('no-transition')
+    $('#loading-bar').css({
+      'width' : '0%'
+    });
+    $('#loading-bar-bg').css({
+      'width' : '100%'
+    });
+    $('#loading-area').css({
+      'height' : '0px',
+      'pointer-events' : 'none'
+    })
+    $('#progress-card').css({
+      'transform' : 'scaleY(0)'
+    })
+	}
+	this.showLoadLegend = function(index) {
+		$('#bar-label').text(gLoadingPhrases[index]);
+	}
+  this.startLoadingSequence = function(){
+    gListingNow = true;
+    $('#loading-bar').removeClass('no-transition')
+    $('#loading-bar-bg').removeClass('no-transition')
+    var loadTime = parseFloat($('#loading-bar').css("transition-duration"))*1000;
+    var legendTime = (loadTime/(gLoadingPhrases.length-2))
+    $('#loading-area').css({
+      'pointer-events' : 'all',
+      'height' : gLoadingHeight+'px'
+    })
+    $('#progress-card').css({
+      'transform' : 'scaleY(1)'
+    })
+    $('.progress').css({
+      'opacity' : '1'
+    });
+    $('#bar-label').css({
+      'opacity' : '1'
+    });
+		// show "Initializing..." on progress card before bar begins growing
+		this.showLoadLegend(0);
+		// show rest of load legends in sequence
+    gTimeouts.push(setTimeout(function(){
+			/**
+			 * #loading-bar widens while #loading-bar-bg shortens,
+			 * creating the illusion of one bar with a background.
+			 */
+      $('#loading-bar').css({
+        'width' : '100%' // will take loadTime ms
+      });
+      $('#loading-bar-bg').css({
+        'width' : '0%' // will take loadTime ms 
+			});
+      loadingBar.showLoadLegend(1);
+      gTimeouts.push(setTimeout(function(){
+        loadingBar.showLoadLegend(2);
+        gTimeouts.push(setTimeout(function(){
+          loadingBar.showLoadLegend(3);
+          gTimeouts.push(setTimeout(function(){
+            loadingBar.showLoadLegend(4);
+            gTimeouts.push(setTimeout(function(){
+              loadingBar.showLoadLegend(5);
+              gTimeouts.push(setTimeout(function(){
+                loadingBar.showLoadLegend(6);
+                gTimeouts.push(setTimeout(function(){
+                  // finally produce and display the result
+									loadingBar.reset();
+                  displayBoopedList(boopify(gUserNumber));
+                },2000)); // ms to show "Transmitting..."
+              },legendTime)); // 5th 
+            },legendTime)); // 4th
+          },legendTime)); // 3rd
+        },legendTime)); // 2nd
+      },legendTime)); // ms to show 1st legend
+    },2000)); // ms after "Initializing..." appears but before bar moves
+  }
 }
 function animateIntro() {
   $('.container').css({
     'opacity':'1'
-  })
+  });
   $('body').css({
     'transform':'scaleX(1) scaleY(1)',
     'opacity':'1'
-  })
+  });
 }
 function switchTheme(newTheme) {
   if (newTheme === "light") {
     $('body').css({
       'background-color' : '#eee'
-    })
+    });
     $('.card').css({
       'background-color' : '#dedede'
-    })
+    });
     $('.jumbotron').css({
       'background-color' : 'white',
       'color' : 'black'
-    })
+    });
   } else {
     $('body').css({
       'background-color' : '#222'
-    })
+    });
     $('.card').css({
       'background-color' : '#dedede'
-    })
+    });
     $('.jumbotron').css({
       'background-color' : '#666',
       'color' : '#ddd'
-    })
+    });
   }
 }
 function throb(element) {
   $(element).css({
     'transform' : 'scaleX(1.15) scaleY(1.15)'
-  })
+  });
   setTimeout(function(){
     $(element).css({
       'transform' : 'scaleX(1) scaleY(1)'
-    })
+    });
     setTimeout(function(){
       $(element).css({
         'transform' : 'scaleX(1.1) scaleY(1.1)'
-      })
+      });
       setTimeout(function(){
         $(element).css({
           'transform' : 'scaleX(1) scaleY(1)'
-        })
-      },100)
-    },100)
-  },100)
+        });
+      },100);
+    },100);
+  },100);
 }
-function cancelTimeouts() {
-	// must be called when animations are canceled in case user starts them again quickly
+function cancelTimeouts() { // must be called when animations are canceled in case user starts them again quickly
   gTimeouts.forEach(function(timeout) {
-    clearTimeout(timeout)
-  })
+    clearTimeout(timeout);
+  });
 }

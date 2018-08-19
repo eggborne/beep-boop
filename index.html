@@ -14,56 +14,51 @@
       <div class="jumbotron">
         <h1 class="display-4"><strong>Beep-Boop!</strong></h1>
         <p class="lead">Enter a number to engage boopification.</p>
-        <p class="tiny">*may also contain beeps</p>
+        <p class="tiny">*may also produce beeps</p>
+        <hr class="my-4">
+        <div id="input-area">
+          <div class="row">
+            <div class="col">
+              <input type="number" class="form-control-md" id="number-input" min="0" placeholder="Enter a number">
+              <div class="form-group form-check">
+                <input type="checkbox" class="form-check-input form-control-md" id="reverseCheck">
+                <label class="form-check-label col-form-label-md" for="reverseCheck">Reverse output</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="loading-area">
+          <div class="card card-success" id="progress-card">
+            <div class="card-body">
+              <div id="bar-label" style="color:black">
+                <!-- progress messages go here -->
+              </div>
+              <div class="progress">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" id="loading-bar" style="width:0%"></div>
+                <div class="progress-bar" role="progressbar" id="loading-bar-bg" style="width:100%;background-color:#ccc"></div>
+              </div>
+            </div>
+          </div>
+        </div>
         <hr class="my-4">
         <div class="row">
           <div class="col">
-            <input type="number" class="form-control-md" id="number-input" max="4" placeholder="Enter a number">
+            <button class="btn btn-success btn-lg" href="#" role="button" id="submit-button">Boopify!</button>
           </div>
-        </div>
-        <div class="row">
-          <div class="col-md">
-            <div class="form-group form-check">
-              <input type="checkbox" class="form-check-input form-control-md" min="0" id="reverseCheck">
-              <label class="form-check-label col-form-label-md" for="reverseCheck">Reverse output</label>
+          <div class="col" style="text-align:right">
+            <div class="form-check">
+              <label class="form-check-label col-form-label-md" for="gridRadios1">
+                Light
+              </label>
+              <input class="form-check-input form-control-md" type="radio" name="themeRadios" id="lightTheme" value="option1" checked>
             </div>
-          </div>
-        </div>
-        <hr class="my-4">
-        <div class="container">
-          <div class="row">
-            <div class="col-xs-4">
-              <button class="btn btn-success btn-lg" href="#" role="button" id="submit-button">Boopify!</button>
-            </div>
-            <div class="col" style="text-align:right">
-              <div class="form-check">
-                <label class="form-check-label col-form-label-md" for="gridRadios1">
-                  Light Theme
-                </label>
-                <input class="form-check-input form-control-md" type="radio" name="themeRadios" id="lightTheme" value="option1" checked>
-              </div>
-              <div class="form-check">
-                <label class="form-check-label col-form-label-md" for="gridRadios2">
-                  Dark Theme
-                </label>
-                <input class="form-check-input form-control-md" type="radio" name="themeRadios" id="darkTheme" value="option2">
-              </div>
+            <div class="form-check">
+              <label class="form-check-label col-form-label-md" for="gridRadios2">
+                Dark
+              </label>
+              <input class="form-check-input form-control-md" type="radio" name="themeRadios" id="darkTheme" value="option2">
             </div>
           </div>
-        </div>
-      </div>
-      <div class="card card-success" id="progress-card">
-        <div class="card-body">
-          <div id="loading-area">
-            <div id="bar-label">
-              <!-- progress messages go here -->
-            </div>
-            <div class="progress" style="transform:scaleY(1.5)">
-              <div class="progress-bar progress-bar-striped progress-bar-animated bg-success" role="progressbar" id="loading-bar" style="width:0%"></div>
-              <div class="progress-bar" role="progressbar" id="loading-bar-bg" style="width:100%;background-color:#ccc"></div>
-            </div>
-          </div>
-          
         </div>
       </div>
       <div class="card card-success" id="list-card">
