@@ -30,7 +30,6 @@ h1 {
   transition: all 500ms ease;
 }
 #loading-bar, #loading-bar-bg {
-  
   transition: all 6000ms linear;
 }
 #bar-label {
@@ -66,12 +65,13 @@ h1 {
   color:#aaa
 }
 .card {
-  box-sizing: border-box;
   width:50%;
   min-width:300px;
   min-height:100px;
+  background-color:#dedede
 }
 #progress-card {
+  background-color: #dedede;
   opacity:0;
   transform:scaleX(1.1) scaleY(1.1);
   transition: all 500ms ease;
