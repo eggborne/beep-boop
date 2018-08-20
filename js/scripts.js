@@ -3,11 +3,11 @@
  */
 var gTimeouts = [];
 var gUserNumber = 0;
-var gMinLoadTime = 1000
+var gMinLoadTime = 5000
 var gWordHeight = 0;
 var gLoadingHeight = 0;
 var gListingNow = false;
-var gLoadingPhrases = 
+var gLoadingPhrases =
 [
   "Initializing boop sequence...",
   "Loading beeps",
@@ -67,7 +67,7 @@ $(function(){
  */
 function boopify(userInput) {
 	/**
-	 * Returns an array of every number from 0 to userInput (inclusive), 
+	 * Returns an array of every number from 0 to userInput (inclusive),
 	 * with some replaced by strings per the rules of "Beep-Boop".
 	 */
   var output = [];
@@ -224,7 +224,7 @@ function LoadingBar() {
         'width' : '100%' // will take loadTime ms
       });
       $('#loading-bar-bg').css({
-        'width' : '0%' // will take loadTime ms 
+        'width' : '0%' // will take loadTime ms
 			});
       loadingBar.showLoadLegend(1);
       gTimeouts.push(setTimeout(function(){
@@ -240,7 +240,7 @@ function LoadingBar() {
                 loadingBar.reset();
                 displayBoopedList(boopify(gUserNumber));
               },legendTime));
-            },legendTime)); 
+            },legendTime));
           },legendTime));
         },legendTime));
       },legendTime));
