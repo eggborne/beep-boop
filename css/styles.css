@@ -1,7 +1,8 @@
 body {
   padding-top: 30px;
   background-color: #ccc;
-  overflow-x: hidden;  
+  overflow-x: hidden;
+  overflow-y: scroll;
   padding-bottom: 30px;
   min-width: 300px;
   transform: scaleX(1.2) scaleY(1.2);
@@ -38,8 +39,9 @@ h1 {
   transition: all 500ms ease;
 }
 #list-card {
-  transform: translateX(30%);
-  transition: all 500ms ease, opacity 200ms ease;
+  transform: scaleX(0);
+  transform-origin: 0%;
+  transition: all 500ms ease, opacity 500ms ease;
 }
 #submit-button {
   width: 200px;
@@ -118,7 +120,7 @@ h1 {
     margin-left: 10%;
   }
   #list-card {
-    transform: translateY(30%);
+    transform-origin: 50%;
   }
 }
 @media screen and (max-width: 768px) {

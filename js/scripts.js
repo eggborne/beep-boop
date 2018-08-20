@@ -3,7 +3,7 @@
  */
 var gTimeouts = [];
 var gUserNumber = 0;
-var gMinLoadTime = 4000
+var gMinLoadTime = 1000
 var gWordHeight = 0;
 var gLoadingHeight = 0;
 var gListingNow = false;
@@ -52,22 +52,15 @@ $(function(){
       gListingNow = false;
       $('#number-input').val("");
     }
-  })
+  });
   $('#lightTheme').click(function(){
     switchTheme("light");
-  })
+  });
   $('#darkTheme').click(function(){
     switchTheme("dark");
-  })
-  // add listener for transitionend of #list-card
-  document.getElementById('list-card').addEventListener("transitionend",function(){
-    if (Array.from(document.getElementById('list-card').classList).indexOf('hidden') === -1) {
-      $('#list-card').addClass('hidden')
-      console.log("HID at opac " + $('#list-card').css("opacity"))
-    }
-  })
+  });
   // get the amount to expand #loading-area by when displaying
-  gLoadingHeight = $('#progress-card').height()
+  gLoadingHeight = $('#progress-card').height();
 });
 /**
  * Business logic
@@ -101,10 +94,12 @@ function boopify(userInput) {
  */
 function displayBoopedList(list) {
   // restore list card to visible state
-  $('#list-card').removeClass('hidden')
+  if ($('#list-card').hasClass('hidden')) {
+    $('#list-card').removeClass('hidden');
+  }
   $('#list-card').css({
-    'transform' : 'translateX(0) translateY(0)',
-    'opacity' : '1'
+    'transform' : 'none',
+    // 'opacity' : '1'
   });
 	// prepare and append HTML to DOM
   list.forEach(function(item,i){
@@ -149,21 +144,13 @@ function displayBoopedList(list) {
       }, delay));
       delay += 60;
     });
-  },100));
+  },500));
 }
 function hideList() {
-  // check if title/list cards are side by side or stacked
-  if ($('body').width() > 992) {
-    $('#list-card').css({
-      'opacity' : '0',
-      'transform' : 'translateX(30%)' // come from the right
-    });
-  } else {
-    $('#list-card').css({
-      'opacity' : '0',
-      'transform' : 'translateY(30%)'
-    });
-  }
+  $('#list-card').css({
+    // 'opacity' : '0',
+    'transform' : 'scaleX(0)'
+  });
 }
 
 /**
