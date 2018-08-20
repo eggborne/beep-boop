@@ -3,6 +3,7 @@
  */
 var gTimeouts = [];
 var gUserNumber = 0;
+var gMinLoadTime = 4000
 var gWordHeight = 0;
 var gLoadingHeight = 0;
 var gListingNow = false;
@@ -13,7 +14,6 @@ var gLoadingPhrases =
   "Loading boops",
   "Connecting Dave nodes",
   "Reticulating splines",
-  "Calibrating beepulators",
   "Transmitting boopified data..."
 ];
 /**
@@ -28,7 +28,17 @@ $(function(){
 				// hide the list, if one's already there
 				if ($('#list-card').css('opacity') !== "0") {
 					hideList();
-				}
+        }
+        if (gUserNumber > 0) {
+          var extraTime = Math.floor(gUserNumber)*25
+          var newLoadTime = gMinLoadTime + extraTime
+          console.log(gUserNumber + "?? " + extraTime + " extra time!")
+          console.log(gUserNumber + "?? " + newLoadTime + " total load time!")
+          // set the loading bar transition speed (fake load time)
+          $('#loading-bar, #loading-bar-bg').css({
+            'transition' : 'width ' + newLoadTime+'ms linear'
+          })
+        }
         loadingBar.startLoadingSequence(); // calls displayBoopedList() after animation completes
         flipStartButton();
       } else {
@@ -48,6 +58,13 @@ $(function(){
   })
   $('#darkTheme').click(function(){
     switchTheme("dark");
+  })
+  // add listener for transitionend of #list-card
+  document.getElementById('list-card').addEventListener("transitionend",function(){
+    if (Array.from(document.getElementById('list-card').classList).indexOf('hidden') === -1) {
+      $('#list-card').addClass('hidden')
+      console.log("HID at opac " + $('#list-card').css("opacity"))
+    }
   })
   // get the amount to expand #loading-area by when displaying
   gLoadingHeight = $('#progress-card').height()
@@ -83,9 +100,10 @@ function boopify(userInput) {
  * Front-end logic
  */
 function displayBoopedList(list) {
-	// restore list card to visible state
+  // restore list card to visible state
+  $('#list-card').removeClass('hidden')
   $('#list-card').css({
-    'transform' : 'none',
+    'transform' : 'translateX(0) translateY(0)',
     'opacity' : '1'
   });
 	// prepare and append HTML to DOM
@@ -134,10 +152,11 @@ function displayBoopedList(list) {
   },100));
 }
 function hideList() {
+  // check if title/list cards are side by side or stacked
   if ($('body').width() > 992) {
     $('#list-card').css({
       'opacity' : '0',
-      'transform' : 'translateX(30%)'
+      'transform' : 'translateX(30%)' // come from the right
     });
   } else {
     $('#list-card').css({
@@ -181,9 +200,6 @@ function LoadingBar() {
     $('#progress-card').css({
       'transform' : 'scaleY(0)'
     });
-    $('body').css({
-      'overflow-y' : 'initial'
-    });
 	}
 	this.showLoadLegend = function(index) {
 		$('#bar-label').text(gLoadingPhrases[index]);
@@ -191,9 +207,6 @@ function LoadingBar() {
   this.startLoadingSequence = function(){
     gListingNow = true;
     $('html').animate({'scrollTop':0},100);
-    $('body').css({
-      'overflow-y' : 'hidden'
-    });
     $('#loading-bar').removeClass('no-transition')
     $('#loading-bar-bg').removeClass('no-transition')
     var loadTime = parseFloat($('#loading-bar').css("transition-duration"))*1000;
@@ -236,14 +249,11 @@ function LoadingBar() {
             gTimeouts.push(setTimeout(function(){
               loadingBar.showLoadLegend(5);
               gTimeouts.push(setTimeout(function(){
-                loadingBar.showLoadLegend(6);
-                gTimeouts.push(setTimeout(function(){
-                  // finally produce and display the result
-                  loadingBar.reset();
-                  displayBoopedList(boopify(gUserNumber));
-                },legendTime));
-              },legendTime)); 
-            },legendTime));
+                // finally produce and display the result
+                loadingBar.reset();
+                displayBoopedList(boopify(gUserNumber));
+              },legendTime));
+            },legendTime)); 
           },legendTime));
         },legendTime));
       },legendTime));

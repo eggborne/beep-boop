@@ -38,9 +38,8 @@ h1 {
   transition: all 500ms ease;
 }
 #list-card {
-  opacity: 0;
   transform: translateX(30%);
-  transition: all 500ms ease, opacity 300ms ease;
+  transition: all 500ms ease, opacity 200ms ease;
 }
 #submit-button {
   width: 200px;
@@ -56,6 +55,9 @@ h1 {
   transform: translateY(-50%);
   margin: 10px 15px 15px 15px;
   transition: opacity 500ms ease;
+}
+.hidden {
+  display:none;
 }
 .no-transition {
   transition: none !important;
