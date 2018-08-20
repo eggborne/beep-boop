@@ -129,10 +129,9 @@ function displayBoopedList(list) {
           $('#number-input').val("");
         }
       }, delay));
-      delay += 80;
+      delay += 60;
     });
-  },100))
-
+  },100));
 }
 function hideList() {
   if ($('body').width() > 992) {
@@ -156,12 +155,12 @@ function flipStartButton() {
     $("#submit-button").text("Cancel");
     $("#submit-button").removeClass('btn-success');
     $("#submit-button").addClass('btn-danger');
-    return "start"
+    return "start";
   } else {
     $("#submit-button").text("Boopify!");
     $("#submit-button").removeClass('btn-danger');
     $("#submit-button").addClass('btn-success');
-    return "stop"
+    return "stop";
   }
 }
 function LoadingBar() {
@@ -178,13 +177,13 @@ function LoadingBar() {
     $('#loading-area').css({
       'height' : '0px',
       'pointer-events' : 'none'
-    })
+    });
     $('#progress-card').css({
       'transform' : 'scaleY(0)'
-    })
+    });
     $('body').css({
-      'overflow-y' : 'scroll'
-    })
+      'overflow-y' : 'initial'
+    });
 	}
 	this.showLoadLegend = function(index) {
 		$('#bar-label').text(gLoadingPhrases[index]);
@@ -194,7 +193,7 @@ function LoadingBar() {
     $('html').animate({'scrollTop':0},100);
     $('body').css({
       'overflow-y' : 'hidden'
-    })
+    });
     $('#loading-bar').removeClass('no-transition')
     $('#loading-bar-bg').removeClass('no-transition')
     var loadTime = parseFloat($('#loading-bar').css("transition-duration"))*1000;
@@ -203,10 +202,10 @@ function LoadingBar() {
     $('#loading-area').css({
       'pointer-events' : 'all',
       'height' : gLoadingHeight+'px'
-    })
+    });
     $('#progress-card').css({
       'transform' : 'scaleY(1)'
-    })
+    });
     $('.progress').css({
       'opacity' : '1'
     });
