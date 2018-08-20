@@ -32,6 +32,7 @@ $(function(){
         loadingBar.startLoadingSequence(); // calls displayBoopedList() after animation completes
         flipStartButton();
       } else {
+        $('html').animate({'scrollTop':0},100);
         throb("#number-input");
       }
     } else {
@@ -112,23 +113,26 @@ function displayBoopedList(list) {
     'opacity': '0',
     'height': '0px'
   });
-  // restore list items' opacity and height
-  var delay = 0; // increases each loop for "cascading" effect
-  list.forEach(function (item, i) {
-    gTimeouts.push(setTimeout(function () {
-      $('#num-' + i).animate({
-        'opacity': '1',
-        'height': gWordHeight+"px"
-      }, 150);
-      // on the last one, flip the start button to green
-      if (i == list.length - 1) {
-        gListingNow = false;
-        flipStartButton();
-        $('#number-input').val("");
-      }
-    }, delay));
-    delay += 80;
-  });
+  gTimeouts.push(setTimeout(function(){
+    // restore list items' opacity and height
+    var delay = 0; // increases each loop for "cascading" effect
+    list.forEach(function (item, i) {
+      gTimeouts.push(setTimeout(function () {
+        $('#num-' + i).animate({
+          'opacity': '1',
+          'height': gWordHeight+"px"
+        }, 150);
+        // on the last one, flip the start button to green
+        if (i == list.length - 1) {
+          gListingNow = false;
+          flipStartButton();
+          $('#number-input').val("");
+        }
+      }, delay));
+      delay += 80;
+    });
+  },100))
+
 }
 function hideList() {
   if ($('body').width() > 992) {
@@ -184,10 +188,15 @@ function LoadingBar() {
 	}
   this.startLoadingSequence = function(){
     gListingNow = true;
+    $('html').animate({'scrollTop':0},100);
+    $('body').css({
+      'overflow-y' : 'hidden'
+    })
     $('#loading-bar').removeClass('no-transition')
     $('#loading-bar-bg').removeClass('no-transition')
     var loadTime = parseFloat($('#loading-bar').css("transition-duration"))*1000;
     var legendTime = (loadTime/(gLoadingPhrases.length-2))
+    var preludeTime = Math.round(legendTime*1.5)
     $('#loading-area').css({
       'pointer-events' : 'all',
       'height' : gLoadingHeight+'px'
@@ -228,15 +237,18 @@ function LoadingBar() {
                 loadingBar.showLoadLegend(6);
                 gTimeouts.push(setTimeout(function(){
                   // finally produce and display the result
-									loadingBar.reset();
+                  $('body').css({
+                    'overflow-y' : 'scroll'
+                  })
+                  loadingBar.reset();
                   displayBoopedList(boopify(gUserNumber));
-                },2000)); // ms to show "Transmitting..."
-              },legendTime)); // 5th 
-            },legendTime)); // 4th
-          },legendTime)); // 3rd
-        },legendTime)); // 2nd
-      },legendTime)); // ms to show 1st legend
-    },2000)); // ms after "Initializing..." appears but before bar moves
+                },legendTime));
+              },legendTime)); 
+            },legendTime));
+          },legendTime));
+        },legendTime));
+      },legendTime));
+    },preludeTime));
   }
 }
 function animateIntro() {
