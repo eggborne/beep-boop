@@ -41,18 +41,17 @@ h1 {
   opacity: 0;
   transform: translateX(30%);
   transition: all 500ms ease, opacity 300ms ease;
-  
 }
 #submit-button {
   width: 200px;
   transition: all 400ms ease;
 }
 #loading-bar, #loading-bar-bg {
-  transition: width 2000ms linear, opacity 300ms ease;
+  transition: width 7000ms linear, opacity 300ms ease;
 }
 #bar-label {
   height: 20px;
-  font-size: 1em;
+  font-size: 0.8em;
   text-align: center;
   transform: translateY(-50%);
   margin: 10px 15px 15px 15px;
@@ -72,12 +71,10 @@ h1 {
   border: 1px solid #888;
   transition: all 300ms ease;
   width: 50%;
-  min-width: 300px;
 }
 .jumbotron {
   padding-top: 20px;
   padding-bottom: 30px;
-  min-width:300px;
   height: auto;
   float: left;
   background-color: #efefef;
@@ -85,15 +82,14 @@ h1 {
 }
 .lead {
   margin-bottom:2px;
-  color: #999
+  color: #999;
+  white-space:nowrap;
 }
 .tiny {
   font-size:10px;
-  color: #aaa
+  color: #999
 }
 .card {
-  
-  min-height: 100px;
   background-color: #dedede
 }
 .display-number {
@@ -113,9 +109,6 @@ h1 {
 }
 .form-check-label {
   margin-right: 30px;
-}
-.form-group.form-check {
-  height: 10px;
 }
 @media screen and (max-width: 992px) {
   .jumbotron, .card {
@@ -137,10 +130,18 @@ h1 {
     padding: 0px 0px 30px 0px;
   }
   h1 strong {
-    font-size: 0.8em
+    font-size: 0.8em;
+  }
+  .container {
+    padding:0;
+  }
+  .jumbotron {
+    padding:30px;
+    padding-top:10px;
+    border:0px;
   }
   #submit-button {
-    width: 140px;
+    width: 120px;
   }
   .lead {
     font-size: 0.9em;
