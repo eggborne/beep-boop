@@ -1,7 +1,7 @@
 body {
   padding-top: 30px;
   background-color: #ccc;
-  overflow-y: scroll;
+  overflow-x: hidden;  
   padding-bottom: 30px;
   min-width: 300px;
   transform: scaleX(1.2) scaleY(1.2);
@@ -81,9 +81,9 @@ h1 {
   transition: all 300ms ease;
 }
 .lead {
-  margin-bottom:2px;
+  margin-bottom: 2px;
   color: #999;
-  white-space:nowrap;
+  white-space: nowrap;
 }
 .tiny {
   font-size:10px;
@@ -136,9 +136,9 @@ h1 {
     padding:0;
   }
   .jumbotron {
-    padding:30px;
-    padding-top:10px;
-    border:0px;
+    padding: 30px;
+    padding-top: 10px;
+    border: 0px;
   }
   #submit-button {
     width: 120px;
