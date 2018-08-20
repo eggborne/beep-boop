@@ -182,6 +182,9 @@ function LoadingBar() {
     $('#progress-card').css({
       'transform' : 'scaleY(0)'
     })
+    $('body').css({
+      'overflow-y' : 'scroll'
+    })
 	}
 	this.showLoadLegend = function(index) {
 		$('#bar-label').text(gLoadingPhrases[index]);
@@ -237,9 +240,6 @@ function LoadingBar() {
                 loadingBar.showLoadLegend(6);
                 gTimeouts.push(setTimeout(function(){
                   // finally produce and display the result
-                  $('body').css({
-                    'overflow-y' : 'scroll'
-                  })
                   loadingBar.reset();
                   displayBoopedList(boopify(gUserNumber));
                 },legendTime));
